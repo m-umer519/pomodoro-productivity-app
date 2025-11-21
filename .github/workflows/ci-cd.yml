@@ -3,8 +3,8 @@ name: Pomodoro App CI/CD
 on:
   push:
     branches:
-      - main
-#this is my job
+      - none
+
 jobs:
   build-and-deploy:
     runs-on: [self-hosted, pomodgithubagent]
