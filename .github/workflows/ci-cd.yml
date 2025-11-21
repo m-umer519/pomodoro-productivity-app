@@ -7,7 +7,7 @@ on:
  #my self hosted agent
 jobs:
   build-and-deploy:
-    runs-on: [self-hosted, pomogithubagent]
+    runs-on: [self-hosted, pomodgithubagent]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
