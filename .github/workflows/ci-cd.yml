@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
- 
+ #my self hosted agent
 jobs:
   build-and-deploy:
     runs-on: [self-hosted, pomogithubagent]
