@@ -16,7 +16,7 @@ jobs:
         run: docker build --no-cache -t pomo-app:${{ github.sha }} .
 
       - name: Stop and remove Docker container if exists
-        shell: pwsh
+        shell: powershell
         run: |
           if (docker ps -a --format "{{.Names}}" | Select-String -Pattern "pomo-app") {
             docker stop pomo-app
