@@ -15,10 +15,13 @@ jobs:
       - name: Build Docker image
         run: docker build --no-cache -t pomo-app:${{ github.sha }} .
 
-      - name: Stop and remove old container
+      - name: Stop and remove Docker container if exists
+        shell: pwsh
         run: |
-          docker stop pomo-app || true
-          docker rm pomo-app || true
+          if (docker ps -a --format "{{.Names}}" | Select-String -Pattern "pomo-app") {
+            docker stop pomo-app
+            docker rm pomo-app
+          }
 
       - name: Run Docker container
         run: docker run -d --name pomo-app -p 5002:3000 pomo-app:${{ github.sha }}
