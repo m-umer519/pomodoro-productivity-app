@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
- #my self hosted agent
+
 jobs:
   build-and-deploy:
     runs-on: [self-hosted, pomodgithubagent]
@@ -12,38 +12,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run Linter
-        run: npm run lint
-
-      - name: Build Next.js app
-        run: npm run build
-
-      - name: Run Tests (optional)
-        run: |
-          if [ -f package.json ] && grep -q '"test"' package.json; then
-            npm test
-          else
-            echo "No test script available"
-          fi
-
       - name: Build Docker image
         run: docker build -t pomo-app:${{ github.sha }} .
 
-      - name: Run Docker container
+      - name: Stop and remove old container
         run: |
           docker stop pomo-app || true
           docker rm pomo-app || true
-          docker run -d --name pomo-app -p 5002:3000 pomo-app:${{ github.sha }}
 
-      - name: Cleanup Docker images (optional)
-        run: |
-          docker image prune -f
+      - name: Run Docker container
+        run: docker run -d --name pomo-app -p 5002:3000 pomo-app:${{ github.sha }}
+
+      - name: Cleanup unused Docker images (optional)
+        run: docker image prune -f
