@@ -8,7 +8,7 @@ RUN npm ci  # dev deps needed for build
 COPY . .
 RUN npm run build
 
-# Stage 2: Runner (small image)
+# Stage 2: Runner stage (small image)
 FROM node:18-alpine AS runner
 WORKDIR /app
 
