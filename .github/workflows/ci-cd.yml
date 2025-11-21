@@ -3,7 +3,7 @@ name: Pomodoro App CI/CD
 on:
   push:
     branches:
-      - none
+      - main
 
 jobs:
   build-and-deploy:
