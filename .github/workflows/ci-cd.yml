@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-#this is my job section
+#this is my job
 jobs:
   build-and-deploy:
     runs-on: [self-hosted, pomodgithubagent]
