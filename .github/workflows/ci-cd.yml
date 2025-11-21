@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Docker image
-        run: docker build -t pomo-app:${{ github.sha }} .
+        run: docker build --no-cache -t pomo-app:${{ github.sha }} .
 
       - name: Stop and remove old container
         run: |
